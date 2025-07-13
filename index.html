@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple DJ Video Test</title>
+  <style>
+    body {
+      background-color: #222;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #ffcc00;
+    }
+    .video-container {
+      width: 80%;
+      max-width: 600px;
+      margin-top: 20px;
+      background-color: black;
+      position: relative;
+    }
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.3);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      font-size: 2.5em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 5;
+    }
+    .volume-button {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 5;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <h1>My Simple DJ Video</h1>
+  <div class="video-container">
+    <video id="myVideo" src="VID_20250713_082914_149.mp4" muted loop playsinline></video>
+    <button class="play-button" id="playBtn"><i class="fas fa-play"></i></button>
+    <button class="volume-button" id="volumeBtn"><i class="fas fa-volume-mute"></i></button>
+  </div>
+
+  <script>
+    const video = document.getElementById('myVideo');
+    const playBtn = document.getElementById('playBtn');
+    const volumeBtn = document.getElementById('volumeBtn');
+
+    playBtn.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        playBtn.style.display = 'none'; // Hide on play
+      } else {
+        video.pause();
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        playBtn.style.display = 'block'; // Show on pause
+      }
+    });
+
+    volumeBtn.addEventListener('click', () => {
+      if (video.muted) {
+        video.muted = false;
+        volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+      } else {
+        video.muted = true;
+        volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      }
+    });
+
+    video.addEventListener('play', () => {
+        playBtn.style.display = 'none';
+    });
+    video.addEventListener('pause', () => {
+        playBtn.style.display = 'block';
+    });
+    video.addEventListener('ended', () => {
+        playBtn.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
